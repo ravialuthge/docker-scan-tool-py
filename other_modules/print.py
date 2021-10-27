@@ -45,6 +45,7 @@ class Print(object):
         return apparmor_output
     
     def container_audit_print(auditcontainerd_path):
+      try:
         _auditcontainerd_cmd = auditcontainerd_path
         _au = "/etc/audit/audit.rules"
         _auditcontainerd_output=[]
@@ -59,7 +60,10 @@ class Print(object):
             auditcontainerd_re = Serverity.wan() + "Add a rule for /usr/bin/docker-containerd file"
         else:
             auditcontainerd_re = Serverity.pas() + "Audit Docker files and directories"
-        return auditcontainerd_re	
+        return auditcontainerd_re
+      except FileNotFoundError:
+          er = "file not found"
+          return er
 
     def container_cgroup_print():
         word = " 'CgroupDriver':"
